@@ -12,15 +12,17 @@ public class NewLoggingAspect {
     @Around("execution(public String returnBook())")
     public Object aroundReturnBookLoggingAdvice(ProceedingJoinPoint proceedingJoinPoint)
             throws Throwable {
-        System.out.println("aroundReturnBookLoggingAdvice: в библиотеку пытаюстя вернуть книгу");
 
-        long begin = System.currentTimeMillis();
-        Object targetMethodResult = proceedingJoinPoint.proceed();
-        long end = System.currentTimeMillis();
+        System.out.println("aroundReturnBookLoggingAdvice: в библиотеку пытаюстя вернуть книгу");
+        Object targetMethodResult = null;
+        try {
+            targetMethodResult = proceedingJoinPoint.proceed();
+        } catch (Exception e) {
+            System.out.println("Было поймано исключение " + e);
+            throw e;
+        }
 
         System.out.println("aroundReturnBookLoggingAdvice: в библиотеку возвращаем книгу");
-        System.out.println("aroundReturnBookLoggingAdvice: метод returnBook выполнил " +
-                "работу за " + (end - begin) + " за миллисекунд");
         return targetMethodResult;
     }
 }
