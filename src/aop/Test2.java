@@ -1,4 +1,4 @@
-package aop.aspects;
+package aop;
 
 import aop.MyConfig;
 import aop.Student;
